@@ -1,0 +1,28 @@
+
+<div *ngIf="sended == false">
+<h1>Lista de películas</h1>
+<br>
+<mat-list>
+  <br>
+  <mat-list-item *ngFor="let movie of movieList" >
+    <mat-card>
+      <mat-card-title>{{movie.title}}</mat-card-title>
+      <mat-card-subtitle>{{movie.tagline}}</mat-card-subtitle>
+      <mat-card-content>
+        <h3 mat-label>{{movie.overview}}</h3>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button mat-button (click)="openMovieDetails(movie)" >Detalles</button>
+        <button mat-button>Eliminar</button>
+      </mat-card-actions>
+    </mat-card>
+
+  </mat-list-item>
+  <br>
+</mat-list>
+<br>
+</div>
+
+<div *ngIf="sended">
+  <app-details [details]="movieDetails" (sendedTrigger)="closeMovieDetails()"></app-details>
+</div>

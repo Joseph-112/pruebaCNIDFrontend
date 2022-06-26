@@ -1,0 +1,7 @@
+<div *ngIf="editing == false">
+    <p>{{details?.title}}</p>
+    <p>Funciona</p>
+    <button mat-button (click)="closeDetails(false)">Volver</button>
+    <button mat-button (click)="openEditDialog()">Editar</button>
+</div>
+<app-update-movie *ngIf="editing" [movieData]="details" (sendTrigger)="closeEditDialog()" ></app-update-movie>

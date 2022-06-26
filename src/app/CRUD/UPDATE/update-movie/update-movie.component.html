@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Editar datos de {{movieData?.title}}</h1>
+<div mat-dialog-content>
+    <input type="text" mat-input [placeholder]="movieData?.overview">
+</div>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cerrar</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>
+</mat-dialog-actions>
