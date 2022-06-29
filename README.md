@@ -4,6 +4,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## IMPORTANTE
 
+### Puntos desarrollados:
+Desarrollo web con CRUD para visualización y modificación de películas
+
 El proyecto ha sido desarrollado utilizando los servicios Firestore de Firebase utilizando Django, gracias por la oportunidad de enfrentar un nuevo reto y espero poder realizar mejores aportes en un futuro
 
 ## Development server
