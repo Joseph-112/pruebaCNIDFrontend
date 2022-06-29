@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DjangoServiceService } from 'src/app/Services/django-service.service';
+import { MovieService } from 'src/app/Services/movie.service';
 
 @Component({
   selector: 'app-movielist',
@@ -8,6 +9,10 @@ import { DjangoServiceService } from 'src/app/Services/django-service.service';
   styleUrls: ['./movielist.component.css']
 })
 export class MovielistComponent implements OnInit {
+
+  // Variable para mostrar/ocultar sección de añadir una nueva película
+  // Variable to show/hide section to add a new movie
+  createComponent: boolean = false
 
   //Lista que recibe todas las películas de la base de datos
   //List that receives all movies from the database
@@ -18,8 +23,9 @@ export class MovielistComponent implements OnInit {
   //Declaración del servicio de Django, servicio movie para enviar datos de la película y router para redireccionar
   //Declaration of Django's service, movie service to send movie data and router to navigate
   constructor(
-    private djangoService:DjangoServiceService,
-    ) { }
+    private djangoService: DjangoServiceService,
+    private movieServ: MovieService
+  ) { }
 
   ngOnInit(): void {
     this.loadMovies()
@@ -28,7 +34,7 @@ export class MovielistComponent implements OnInit {
 
   //Método para cargar una lista de todas las películas
   //Method to load a list of all the movies  
-  loadMovies(){
+  loadMovies() {
     this.djangoService.getMovieList().subscribe(res => {
       //Comprobación de la lista que llega usando el servicio de Django
       //Cheking the incomming list using the Django service 
@@ -43,10 +49,10 @@ export class MovielistComponent implements OnInit {
     })
   }
 
-  openMovieDetails(movie:any){
-    
-    //Variable para mostrar u ocultar detalles de película
-    //Variable to show or hide movie details    
+  openMovieDetails(movie: any) {
+
+    //Variable para mostrar u ocultar detalles de película    
+    //Variable to show or hide movie details
     this.sended = true
 
     //Verificando la película que se va a enviar al componente detalles
@@ -54,16 +60,19 @@ export class MovielistComponent implements OnInit {
     console.log('Película seleccionada')
     console.log(movie)
 
-    this.movieDetails = movie
+    this.movieServ.movieDetailsMethod(movie)
 
-    // Evento que emite la película al servicio intermediario entre componentes
-    // Event that emits the movie to intermediate service between components
-    //this.movieService.movie.emit(movie)
-    //this.router.navigate(['details'])
   }
 
-  closeMovieDetails(){
+  closeMovieDetails() {
     this.sended = false
+  }
+
+  deleteMovie(movie: any) {
+    this.djangoService.deleteMovie(movie).subscribe(res => {
+      alert('Película eliminada')
+    }
+    )
   }
 
 }

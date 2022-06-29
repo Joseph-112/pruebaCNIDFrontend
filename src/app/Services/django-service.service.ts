@@ -41,4 +41,12 @@ export class DjangoServiceService {
   deleteMovie(val: any){
     return this.http.delete<any[]>(this.apiURL + '/movies/', val)
   }
+
+  getMovieGenresList(){
+    return this.http.get<any[]>(this.apiURL+'/genres/null')
+  }
+
+  getCollectionsList(){
+    return this.http.get<any[]>(this.apiURL+'/collections/0')
+  }
 }

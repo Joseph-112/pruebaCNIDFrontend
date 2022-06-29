@@ -1,28 +1,56 @@
+<div *ngIf="sended == false" class="full-display">
+  <div class="list-header">
+    <h1>Lista de películas</h1>
+    <button mat-button (click)="createComponent = true">Añadir nueva película</button>
+  </div>
+  <div class="movie-list">
+    <mat-grid-list cols="4" rowHeight="100px">
+      <mat-grid-tile *ngFor="let movie of movieList" [colspan]="3" [rowspan]="5" style.background="red">
+        <mat-card class="card">
+            <img class="poster" mat-card-image [src]="movie.poster_path">
+          <mat-card-title>{{movie.title}}</mat-card-title>
+          <mat-card-subtitle>{{movie.tagline}}</mat-card-subtitle>
+          <mat-card-content>
+            <h3 mat-label>{{movie.overview}}</h3>
+          </mat-card-content>
+          <mat-card-actions align="end">
+            <button mat-button (click)="openMovieDetails(movie)">Detalles</button>
+            <button mat-button (click)="deleteMovie()">Eliminar</button>
+          </mat-card-actions>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+  <!-- <form>
+    <mat-list>
+      <br>
+      <mat-list-item *ngFor="let movie of movieList">
+        <mat-card>
+          <mat-card-title>{{movie.title}}</mat-card-title>
+          <mat-card-subtitle>{{movie.tagline}}</mat-card-subtitle>
+          <mat-card-content>
+            <h3 mat-label>{{movie.overview}}</h3>
+          </mat-card-content>
+          <mat-card-actions align="end">
+            <button mat-button (click)="openMovieDetails(movie)">Detalles</button>
+            <button mat-button>Eliminar</button>
+          </mat-card-actions>
+        </mat-card>
 
-<div *ngIf="sended == false">
-<h1>Lista de películas</h1>
-<br>
-<mat-list>
-  <br>
-  <mat-list-item *ngFor="let movie of movieList" >
-    <mat-card>
-      <mat-card-title>{{movie.title}}</mat-card-title>
-      <mat-card-subtitle>{{movie.tagline}}</mat-card-subtitle>
-      <mat-card-content>
-        <h3 mat-label>{{movie.overview}}</h3>
-      </mat-card-content>
-      <mat-card-actions align="end">
-        <button mat-button (click)="openMovieDetails(movie)" >Detalles</button>
-        <button mat-button>Eliminar</button>
-      </mat-card-actions>
-    </mat-card>
+      </mat-list-item>
+      <br>
+    </mat-list>
+  </form> -->
 
-  </mat-list-item>
   <br>
-</mat-list>
-<br>
 </div>
 
 <div *ngIf="sended">
-  <app-details [details]="movieDetails" (sendedTrigger)="closeMovieDetails()"></app-details>
+  <app-details (sendedTrigger)="closeMovieDetails()"></app-details>
+</div>
+
+<div *ngIf="createComponent">
+  <app-add-movie>
+  </app-add-movie>
+  <button mat-button (click)="createComponent=false">Cancelar</button>
 </div>

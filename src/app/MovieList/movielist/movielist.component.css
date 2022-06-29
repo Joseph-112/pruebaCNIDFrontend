@@ -1,0 +1,17 @@
+.movie-list{
+    padding: 20px 20px 20px 20px;
+    width: 100%;
+}
+
+.list-header{
+    padding-left: 20px;
+}
+
+.card{
+    width: 100%;
+}
+
+.poster{
+    height: auto;
+    max-width: 30%;
+}

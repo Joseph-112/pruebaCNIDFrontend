@@ -1,6 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { UpdateMovieComponent } from 'src/app/CRUD/UPDATE/update-movie/update-movie.component';
+import { MovieService } from 'src/app/Services/movie.service';
 
 @Component({
   selector: 'app-details',
@@ -9,30 +11,19 @@ import { UpdateMovieComponent } from 'src/app/CRUD/UPDATE/update-movie/update-mo
 })
 export class DetailsComponent implements OnInit {
 
-  @Input() details: any
   @Output() sendedTrigger = new EventEmitter<boolean>()
+  details: any
   editing: boolean = false
-  constructor(private dialog:MatDialog) {
+  constructor(private dialog:MatDialog, private movieServ: MovieService, private router: Router) {
   }
 
   ngOnInit(): void {
-    console.log('En detalles')
     this.showMovieDetails()
-    /* this.movieService.movieDetailsTrigger.subscribe(details => {
-      console.log('Detalles que llegan ... ',details)
-    }) */
   }
 
   showMovieDetails(){    
+    this.details = this.movieServ.details
     console.log('En show details: '+this.details?.title)
-    /* 
-    this.movieService.movie.subscribe(movieData => {
-      alert('Data entrante: '+movieData?.title)
-      //alert(movieData?.title)
-      //this.details = movieData?.title
-      //alert(this.details)
-
-    }) */
   }
 
   closeDetails(value: boolean){
@@ -40,11 +31,12 @@ export class DetailsComponent implements OnInit {
   }
 
   openEditDialog(){
-    this.dialog.open(UpdateMovieComponent,{data:this.details})
+    this.dialog.open(UpdateMovieComponent)
   }
 
   closeEditDialog(){
     this.editing = false
+    this.dialog.closeAll()
   }
 
 }
